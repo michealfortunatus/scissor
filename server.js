@@ -1,6 +1,5 @@
 import express from "express";
-import dotenv from "dotenv"
-dotenv.config()
+import {config} from "./config/config.js";
 
 const app = express()
 
@@ -8,7 +7,7 @@ import { connectToMongoDB } from "./db/db.js";
 
 import urlRoute from "./routes/url.route.js";
 
-const PORT= process.env.PORT;
+const PORT= config.port;
 
 // app.use(bodyParser.urlencoded({ extended: false }))
 
