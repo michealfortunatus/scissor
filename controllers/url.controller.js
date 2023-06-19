@@ -1,6 +1,5 @@
 import dotenv from "dotenv"
 dotenv.config()
-import urlModel from "../db/models/url.model.js";
 import * as urlService from "../services/url.service.js"
 import {nanoid} from "nanoid";
 
@@ -9,8 +8,9 @@ const createUrl = async (req, res) => {
     const urlId = nanoid(5);
     const body = req.body
     const origUrl = body.url;
+    
     try{
-        let url = await urlModel.findOne({ origUrl });
+        let url = await urlService.getOrigUrl(origUrl);
     
         if (!url){
         const shortUrl = `${base}/${urlId}`;
@@ -21,9 +21,12 @@ const createUrl = async (req, res) => {
           shortUrl,
           date: new Date(),
         });
+
+       
         res.status(201).json({ data: urlData });
         } else{
-            let shortUrl = await urlModel.findOne({ origUrl }).select({shortUrl: 1, _id:0})
+            const shortUrl = await urlService.getShortUrl(origUrl);
+            
             res.status(201).json({ data: shortUrl });
         }
     } catch(err){
@@ -34,4 +37,32 @@ const createUrl = async (req, res) => {
   };
 
 
- export {createUrl};
+const getShortUrl= async (req, res) => {
+  const urlId = req.params.id;
+  
+  try{
+      const url = await urlService.getUrlById(urlId);
+        
+      if (!url){
+      res.status(404).json("Not found");
+      } else{
+          const updatedUrl = await urlService.incrementUrlClicks(urlId)
+         
+          return res.redirect(url.origUrl);
+      }
+  } catch(err){
+      console.log(err);
+    res.status(500).json('Server Error');
+  };
+ 
+};
+
+
+
+
+
+
+
+
+
+ export {createUrl, getShortUrl};
