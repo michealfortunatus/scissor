@@ -1,12 +1,12 @@
 import  mongoose from "mongoose";
-import dotenv from "dotenv";
-dotenv.config();
+import {config} from "../config/config.js"
 
-const MONGO_URL= process.env.MONGO_URL
+
+const MONGODB_URI= config.mongodb.url
 
 function connectToMongoDB() {
 
-	mongoose.connect(MONGO_URL);
+	mongoose.connect(MONGODB_URI);
 
     mongoose.connection.on('connected', () => {
             console.log('Connected to MongoDB successfully');

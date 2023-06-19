@@ -10,10 +10,12 @@
   "author": "Adeyinka Oresanya",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "is-url": "^1.2.4",
     "is-url-http": "^2.3.5",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.4",
     "nanoid": "^4.0.2"
   },
