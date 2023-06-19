@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-require("dotenv").config()
+import  mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
 const MONGO_URL= process.env.MONGO_URL
 
@@ -17,5 +18,5 @@ function connectToMongoDB() {
     }
     
     
-    module.exports = { connectToMongoDB };
+    export {connectToMongoDB};
 		

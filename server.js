@@ -1,13 +1,28 @@
-const express = require("express")
+import express from "express";
+import dotenv from "dotenv"
+dotenv.config()
+
 const app = express()
 
-const db = require("./db/db")
+import { connectToMongoDB } from "./db/db.js";
 
-PORT= process.env.PORT
+import urlRoute from "./routes/url.route.js";
+
+const PORT= process.env.PORT;
+
+// app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use(express.json());
+
+//routes
+app.use("/url", urlRoute);
 
 
 
-db.connectToMongoDB()
+
+
+
+connectToMongoDB()
 
 app.listen(PORT, () => {
     console.log(`Server is listening at PORT ${PORT}`)
