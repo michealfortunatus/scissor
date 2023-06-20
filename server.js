@@ -2,7 +2,7 @@ import express from "express";
 import {config} from "./config/config.js";
 import { connectToMongoDB } from "./db/db.js";
 import authMiddleware from "./middleware/authentication.middleware.js";
-
+import {limiter} from "./middleware/rateLimiter.js"
 import urlRoute from "./routes/url.route.js";
 import userRoutes from "./routes/user.route.js";
 
@@ -15,6 +15,8 @@ const PORT= config.port;
 
 
 app.use(express.json());
+app.use(limiter);
+
 
 //routes
 // 
