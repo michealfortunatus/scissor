@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import urlModel from "../db/models/url.model.js";
 
 const createShortUrl = async (urlData) => {
@@ -6,12 +7,12 @@ const createShortUrl = async (urlData) => {
 };
 
 const getOrigUrl= async(origUrl) => {
-  let url= await urlModel.findOne({ origUrl});
+  let url= await urlModel.findOne({ origUrl}).populate("user");
   return url;
 };
 
 const getUrlById= async(urlId) => {
-  let url= await urlModel.findOne({ urlId});
+  let url= await urlModel.findOne({ urlId}).populate("user");
   return url;
 };
 
@@ -20,10 +21,18 @@ const getShortUrl= async(origUrl) => {
   return shortUrl;
 }
 
+const getallUrlsbyUserId= async(userId) => {
+  //paginate?
+  let urls = await urlModel.find({
+    user: new Types.ObjectId(userId),
+  }).populate("user");;
+  return urls;
+}
+
 const incrementUrlClicks= async(urlId) => {
   let url = await urlModel.updateOne({ urlId: urlId }, {$inc: { clicks: 1 }}, { new: true });
   return url;
 }
 
 
-export {createShortUrl, getOrigUrl, getUrlById, getShortUrl, incrementUrlClicks};
+export {createShortUrl, getOrigUrl, getUrlById, getShortUrl, getallUrlsbyUserId, incrementUrlClicks};

@@ -27,6 +27,6 @@ userSchema.pre("save", function (next) {
   });
 });
 
-const UserModel = model("User", userSchema);
+const userModel = model("User", userSchema);
 
-export { UserModel };
+export { userModel };

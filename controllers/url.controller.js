@@ -1,10 +1,11 @@
-import dotenv from "dotenv"
-dotenv.config()
+
+import {config} from "../config/config.js";
+
 import * as urlService from "../services/url.service.js"
 import {nanoid} from "nanoid";
 
 const createUrl = async (req, res) => {
-    const base = process.env.BASE;
+    const base = config.base;
     const urlId = nanoid(5);
     const body = req.body
     const origUrl = body.url;
@@ -19,11 +20,12 @@ const createUrl = async (req, res) => {
             urlId,
             origUrl,
           shortUrl,
+          user: req.user.user._id,
           date: new Date(),
         });
 
-       
         res.status(201).json({ data: urlData });
+
         } else{
             const shortUrl = await urlService.getShortUrl(origUrl);
             
@@ -58,11 +60,28 @@ const getShortUrl= async (req, res) => {
 };
 
 
+const getAllUrlsByUser = async (req, res) => {
+  const userId = req.user.user._id;
+  
+  
+  try{
+    const urls = await urlService.getallUrlsbyUserId(userId);
+        
+      if (!urls){
+      res.status(404).json('No urls available yet');
+      } else{
+        res.status(201).json({ data: urls })
+      }
+  } catch(err){
+      console.log(err);
+    res.status(500).json('Server Error');
+  };
+ 
+};
 
 
 
 
 
 
-
- export {createUrl, getShortUrl};
+ export {createUrl, getShortUrl, getAllUrlsByUser};

@@ -1,26 +1,22 @@
 import Joi from "joi";
 
-// name: "",
-// email: "",
-// password: "",
-// confirmPassword: "",
+
 
 const registerValidator = (req, res, next) => {
   const user = req.body;
   const schema = Joi.object({
 
     name: Joi.string()
-      .pattern(new RegExp("^[a-zA-Z ]{3,250}$"))
       .min(3)
       .max(30)
       .trim()
       .required(),
 
     password: Joi.string()
-      .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")) // don't use this
+      .pattern(new RegExp("^[A-Z]{1}[a-z0-9]{3,30}[!@#%^&*()_+-=\\{}|;':,./<>?~`]{1}$"))
       .required(),
 
-    confirmPassword: Joi.string().required(),
+    confirmPassword: Joi.ref('password'),
 
     email: Joi.string()
       .email({
@@ -39,22 +35,22 @@ const registerValidator = (req, res, next) => {
   next();
 };
 
+
 const loginValidator = (req, res, next) => {
   const loginDetails = req.body;
   const schema = Joi.object({
     password: Joi.string()
-      .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")) // don't use this
+      .pattern(new RegExp("^[A-Z]{1}[a-z0-9]{3,30}[!@#%^&*()_+-=\\{}|;':,./<>?~`]{1}$"))
       .required(),
     email: Joi.string()
       .email({
         minDomainSegments: 2,
-        // tlds: { allow: ["com", "net"] },
       })
       .required(),
   });
 
   const result = schema.validate(loginDetails);
-  // console.log("result", result);
+  console.log("result", result);
   if (result.error) {
     res.status(400).json({ errors: result.error });
     return;
@@ -63,4 +59,6 @@ const loginValidator = (req, res, next) => {
   next();
 };
 
-export { registerValidator, loginValidator };
+
+
+export  {registerValidator, loginValidator};

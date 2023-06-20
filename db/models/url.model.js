@@ -1,10 +1,11 @@
-import mongoose from "mongoose";
+import {model, Schema, Types} from "mongoose";
 
-const urlModel = new mongoose.Schema({
+const urlSchema = new Schema({
   urlId: {
     type: String,
     required: true,
   },
+  user: { type: Types.ObjectId, ref: "User", required: true },
   origUrl: {
     type: String,
     required: true,
@@ -24,4 +25,6 @@ const urlModel = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Url", urlModel, "Urls");
+const urlModel = model("Url", urlSchema); 
+
+export default urlModel;
