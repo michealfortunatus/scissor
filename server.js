@@ -1,6 +1,7 @@
 import express from "express";
 import {config} from "./config/config.js";
 import { connectToMongoDB } from "./db/db.js";
+import {cache} from "./config/redis.js";
 import authMiddleware from "./middleware/authentication.middleware.js";
 import {limiter} from "./middleware/rateLimiter.js"
 import urlRoute from "./routes/url.route.js";
@@ -26,7 +27,7 @@ app.use("/url", authMiddleware, urlRoute);
 
 
 
-
+cache.connect()
 
 connectToMongoDB()
 

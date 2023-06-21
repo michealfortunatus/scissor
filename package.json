@@ -19,7 +19,8 @@
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.4",
-    "nanoid": "^4.0.2"
+    "nanoid": "^4.0.2",
+    "redis": "^4.6.7"
   },
   "type": "module"
 }
