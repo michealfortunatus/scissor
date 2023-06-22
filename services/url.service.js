@@ -22,12 +22,22 @@ const getShortUrl= async(origUrl) => {
 }
 
 const getallUrlsbyUserId= async(userId) => {
-  //paginate?
+  const urlsPerPage= 20
+
+  const totalRecords = await urlModel.find().count();
+
+  const totalPages = Math.ceil(totalRecords / urlsPerPage);
+    
+  const page= req.query.page || 0;
+
   let urls = await urlModel.find({
     user: new Types.ObjectId(userId),
-  }).populate("user");;
-  return urls;
+  }).sort({date: -1, clicks: -1})
+    .skip(page * urlsPerPage)
+    .limit(urlsPerPage);
+  return {urls, totalPages};
 }
+
 
 const incrementUrlClicks= async(urlId) => {
   let url = await urlModel.updateOne({ urlId: urlId }, {$inc: { clicks: 1 }}, { new: true });

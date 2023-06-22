@@ -1,15 +1,29 @@
-// import Cache from "../config/redis.js"
-//Under the getShortUrl, after defining  your urlID
-const cacheKey = `urls:${urlId}` //creating a unique cache key
-const cachedUrl = await Cache.redis.get(cacheKey);
-//Cache hit
-if(cachedUrl){
-    return res.status(201).json({status: true, url:JSON.parse(cachedUrl)})//url will be the variable you used to store your db findings
-
-} //here this means no longer going to the database to get data
- //Cache miss
- //first your code for looking to database, then
- Cache.redis.set(cacheKey, JSON.stringify(url));
+// import isUrl from "is-url";
 
 
- //to get all orders
+//   const  url= "hs://gogle.cm"
+//   const result = isUrl(url);
+
+//  console.log(result)
+
+
+
+function validateUrl(str) {
+    const pattern = new RegExp(
+        '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$', // fragment locator
+    'i'
+  );
+  return pattern.test(str);
+  }
+
+
+
+  const  url= "https://www.google.com"
+ 
+  
+  console.log(validateUrl(url));

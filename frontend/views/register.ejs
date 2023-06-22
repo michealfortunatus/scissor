@@ -1,0 +1,22 @@
+<%- include("../public/partials/nav.ejs") %> 
+<%- include("../public/partials/header.ejs") %>
+
+<div class="container mt-5">
+    <h3 class="my-3">Sign up </h3>
+    <form action="/register" method="POST">
+        <input type="text" name="name" placeholder="name" class="form-control" required>
+        <input type="email" name="email" placeholder="email" class="mt-3 form-control" required>
+        <input type="password" name="password" placeholder="password" class="mt-3 form-control" required>
+        <input type="submit" value="SIGN UP" class="mt-5 btn btn-md btn-danger">
+    </form>
+
+    
+</div>
+<div class="container mt-5">
+    <p>Already a member?</p>
+    <a href=" /login" class="btn btn-primary">Log in</a>
+</div>
+
+<%- include("../public/partials/footer.ejs") %>
+
+

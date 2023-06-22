@@ -3,14 +3,26 @@ import jwt from "jsonwebtoken";
 import { config } from "../config/config.js";
 import * as userService from "../services/user.service.js";
 
-const register = async (req, res) => {
+
+const getRegister= async(req, res)=>{
+    res.render("register");
+};
+
+const getLogin= async(req, res)=>{
+  res.render("login");
+};
+
+
+const postRegister = async (req, res) => {
   const userRequest = req.body;
+  console.log(userRequest)
   // check if a user already exist with the email
   const exist = await userService.userExist(userRequest.email);
   if (!exist) {
 
     const newUser = await userService.create({ ...userRequest});
-    res.status(200).json(newUser);
+    // res.status(200).json(newUser);
+    res.redirect("login")
   } else {
     res.status(400).json({ message: "User already exist" });
   }
@@ -18,7 +30,7 @@ const register = async (req, res) => {
 
 
 
-const login = async (req, res) => {
+const postLogin = async (req, res) => {
   const body = req.body;
   // check if the user is in the db
   const user = await userService.getUserByEmail(body.email);
@@ -36,6 +48,8 @@ const login = async (req, res) => {
   // give a token
   var token = jwt.sign({user}, config.jwt.secret, {expiresIn: config.jwt.ttl});
   res.status(200).json({ token, message: "success" });
+  // res.redirect("/")
+
 };
 
-export { register, login };
+export { getRegister, getLogin, postRegister, postLogin };
