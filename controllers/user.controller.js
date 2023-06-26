@@ -21,7 +21,7 @@ const postRegister = async (req, res) => {
   if (!exist) {
 
     const newUser = await userService.create({ ...userRequest});
-    // res.status(200).json(newUser);
+    //res.status(200).json(newUser);
     res.redirect("login")
   } else {
     res.status(400).json({ message: "User already exist" });
@@ -47,8 +47,11 @@ const postLogin = async (req, res) => {
   }
   // give a token
   var token = jwt.sign({user}, config.jwt.secret, {expiresIn: config.jwt.ttl});
-  res.status(200).json({ token, message: "success" });
-  // res.redirect("/")
+  res.cookie("token", token, {
+    httpOnly: true
+})
+  // res.status(200).json({ token, message: "success" });
+  res.redirect("/url/users")
 
 };
 

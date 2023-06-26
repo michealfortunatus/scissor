@@ -4,11 +4,14 @@ import { config } from "../config/config.js";
 const authMiddleware = async (req, res, next) => {
   // get header
   try {
-    const authorization = req.headers.authorization;
+    // const authorization = req.headers.authorization;
+    const token = req.cookies.token
+
+    // console.log(authorization)
     
    
     // get token
-    const [_, token] = authorization.split(" ");
+    // const [_, token] = authorization.split(" ");
    
 
     // check that a user has a token

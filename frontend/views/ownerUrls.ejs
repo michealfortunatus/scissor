@@ -3,20 +3,20 @@
 
 <div class="container mt-5 py-5">
     
-    <h3>Welcome to the House of Stories!</h3>
+    <h3>Your Urls!</h3>
     
-    <% authorBlogs.forEach(blog => { %>
+    <% ownerUrl.forEach(url => { %>
 
     <div class="card mt-3">
         <div class="card-body">
-            <p class="text-muted">published at: <%=blog.postedAt %> </p>
-            <p class="text-muted"><%= blog.reading_time %> min read </p>        
-            <h5 class="card-title"><%= blog.title %> </h5>
-            <p class="card-text"><%= blog.description %></p>
+            <p class="text-muted">created at: <%=url.date %> </p>
+            <p class="text-muted"><%= url.origUrl %> Original url </p>        
+            <h5 class="card-title"><%=url.shortUrl %> Short Url</h5>
+            <p class="card-text"><%= url.clicks %> clicks</p>
             <p class="card-text"><%= blog.content.slice(0, 99) %> .... <a href="/blog/<%= blog._id %>">Read More</a></p>
-            <a href=" /blog/<%= blog._id %>" class="btn btn-primary">Read More...</a>
+            <!-- <a href=" /blog/<%= blog._id %>" class="btn btn-primary">Read More...</a>
             <a href=" /edit/<%= blog._id %>" class="btn btn-warning">Edit</a>
-            <a href=" /delete/<%= blog._id %>" class="btn btn-danger">Delete</a>
+            <a href=" /delete/<%= blog._id %>" class="btn btn-danger">Delete</a> -->
             
         </div>
     </div>

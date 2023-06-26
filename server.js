@@ -1,6 +1,7 @@
 import express from "express";
 import * as path from "path";
-import bodyParser from "body-parser"
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import {config} from "./config/config.js";
 import { connectToMongoDB } from "./db/db.js";
 import {cache} from "./config/redis.js";
@@ -22,6 +23,8 @@ const PORT= config.port;
 
 app.use(express.json());
 app.use(limiter);
+app.use(cookieParser);
+
 
 app.set("view engine", "ejs")
 app.use(express.static("./frontend/public"))
@@ -35,9 +38,9 @@ app.use(bodyParser.json())
     }));
 //routes
 // 
-// app.use("/", userRoutes);
+app.use("/", userRoutes);
 app.use("/url", authMiddleware, urlRoute);
-app.use("/", urlRoute);
+// app.use("/", urlRoute);
 
 
 

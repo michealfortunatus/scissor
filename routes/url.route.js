@@ -8,7 +8,7 @@ const urlRoute = Router()
 
 urlRoute.get("/", getHome);
 // urlRoute.post("/", createUrlValidator, createUrl);
-// urlRoute.get("/:id", getShortUrlCache,getShortUrl);
+//urlRoute.get("/:id", getShortUrlCache,getShortUrl);
 urlRoute.get("/users", getAllUrlsByUser);
 
 export default urlRoute

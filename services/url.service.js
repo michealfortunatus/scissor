@@ -21,14 +21,13 @@ const getShortUrl= async(origUrl) => {
   return shortUrl;
 }
 
-const getallUrlsbyUserId= async(userId) => {
+const getallUrlsbyUserId= async(userId, page) => {
   const urlsPerPage= 20
 
   const totalRecords = await urlModel.find().count();
 
   const totalPages = Math.ceil(totalRecords / urlsPerPage);
     
-  const page= req.query.page || 0;
 
   let urls = await urlModel.find({
     user: new Types.ObjectId(userId),

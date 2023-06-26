@@ -67,16 +67,18 @@ const getShortUrl= async (req, res) => {
 
 
 const getAllUrlsByUser = async (req, res) => {
-  const userId = req.user._id;
+  
+  const userId = req.user.user._id;
+  const page= req.query.page || 0;
+ 
   
   try{
-    const {urls, totalPages} = await urlService.getallUrlsbyUserId(userId);
-        
+    const {urls, totalPages} = await urlService.getallUrlsbyUserId(userId, page);
       if (!urls){
       res.status(404).json('No urls available yet');
       } else{
-        res.status(201).json({ data: urls, pages: totalPages })
-    // res.render("ownerUrls", { ownerUrls: urls, pages: totalPages});
+        // res.status(201).json({ data: urls, pages: totalPages })
+    res.render("ownerUrls", { ownerUrls: urls, pages: totalPages});
       }
   } catch(err){
       console.log(err);
