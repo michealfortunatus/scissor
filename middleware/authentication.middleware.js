@@ -11,7 +11,7 @@ const authMiddleware = async (req, res, next) => {
     
    
     // get token
-    // const [_, token] = authorization.split(" ");
+    //  const [_, token] = authorization.split(" ");
    
 
     // check that a user has a token
@@ -26,10 +26,6 @@ const authMiddleware = async (req, res, next) => {
     }
     // add user from the token to the request
     req.user = jwt.decode(token);
-  
-    
-    
-
 
     next();
   } catch (e) {

@@ -1,0 +1,43 @@
+<%- include("../public/partials/nav") %> 
+<%- include("../public/partials/header") %>
+
+<div class="container mt-5 py-5">
+    <div class="card-body">
+        <form action="/create" method="POST">
+            <input type="text" name="url" placeholder="Type url" class="form-control" required>
+            
+            
+            <input type="submit" value="shorten" class="mt-1 btn btn-md btn-danger">
+        </form>
+    
+    <h3>Your Urls!</h3>
+    
+    <% ownerUrls.forEach(url => { %>
+
+    <div class="card mt-3">
+        <div class="card-body font-weight-bold">
+             <div style="width:15%" class="mt-5 border border-dark text-center"><%=url.date %></div>
+             <div class="text-muted"><%= url.origUrl %> Original url</div>
+                   
+            <div class="d-inline p-2 text-danger"><%=url.shortUrl %></div>
+            <div class="d-inline p-2 border border-primary text-center text-primary">Clicks <%=url.clicks %></div>
+            
+    
+            
+            
+        </div>
+    </div>
+    <%}) %>
+
+
+</div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <% for (let num = 1; num <= pages; num++) { %>
+      <li class="page-item"><a class="page-link" href="?page=<%= num; %>">
+        <%= num; %></a></li><% } %>
+    </ul>
+  </nav>
+
+<%- include("../public/partials/footer") %>

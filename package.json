@@ -20,6 +20,7 @@
     "is-url-http": "^2.3.5",
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
     "mongoose": "^7.2.4",
     "nanoid": "^4.0.2",
     "redis": "^4.6.7"

@@ -1,0 +1,33 @@
+<%- include("../public/partials/nav") %> 
+<%- include("../public/partials/header") %>
+
+<div class="container mt-5 py-2">
+    <div class="text-center">
+    <h3>Url Shortener</h3>
+    <p>Simplify and manage your links</p>
+</div>
+    
+    
+    
+
+    
+        <div class="card-body">
+            <form action="/create" method="POST">
+                <input type="text" name="url" placeholder="Type url" class="form-control" required>
+                
+                
+                <input type="submit" value="shorten" class="mt-1 btn btn-md btn-danger">
+            </form>
+            <div style="width:10%" class="mt-5 p-1 border border-dark text-center text-danger">box1</div>
+            <div class="d-inline mt-5 p-2 border border-dark">box1</div>
+            <div class="d-inline p-2 bg-dark">box2</div>
+            <div class="d-inline p-2 bg-dark">box2</div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<%- include("../public/partials/footer") %>

@@ -2,13 +2,18 @@ import { Router } from "express";
 import {getLogin, postLogin, getRegister, postRegister } from "../controllers/user.controller.js";
 import {registerValidator, loginValidator}  from "../middleware/validators/userValidator.js";
 
-const userRoutes = Router();
-userRoutes.get("/register", getRegister);
+const userRoute = Router();
+
   
-userRoutes.get("/login", getLogin);
-userRoutes.post("/register",  registerValidator, postRegister);
-userRoutes.post("/login", loginValidator, postLogin);
+userRoute.route("/login")
+    .get(getLogin)
+    .post(loginValidator, postLogin)
 
 
-export default userRoutes;
+userRoute.route("/register")
+.get(getRegister)
+.post(registerValidator, postRegister);
+
+
+export default userRoute;
 

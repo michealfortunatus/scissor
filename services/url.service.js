@@ -31,7 +31,7 @@ const getallUrlsbyUserId= async(userId, page) => {
 
   let urls = await urlModel.find({
     user: new Types.ObjectId(userId),
-  }).sort({date: -1, clicks: -1})
+  }).sort({date: 1})
     .skip(page * urlsPerPage)
     .limit(urlsPerPage);
   return {urls, totalPages};

@@ -1,11 +1,11 @@
 
 import {config} from "../config/config.js";
-
-import * as urlService from "../services/url.service.js"
+import moment from "moment";
+import * as urlService from "../services/url.service.js";
 import {nanoid} from "nanoid";
 
 
-const getHome= async(req, res)=>{
+const getHome = async(req, res)=>{
   res.render("index");
 };
 
@@ -27,10 +27,11 @@ const createUrl = async (req, res) => {
             origUrl,
           shortUrl,
           user: req.user.user._id,
-          date: new Date(),
+          date: moment().format("DD-MMM-YYYY"),
         });
 
-        res.status(201).json({ data: urlData });
+        res.redirect("/by-user");
+        // res.status(201).json({ data: urlData });
 
         } else{
             const shortUrl = await urlService.getShortUrl(origUrl);
@@ -67,19 +68,18 @@ const getShortUrl= async (req, res) => {
 
 
 const getAllUrlsByUser = async (req, res) => {
-  
   const userId = req.user.user._id;
-  const page= req.query.page || 0;
- 
+  const page= req.query.page || 0; 
   
   try{
+  
     const {urls, totalPages} = await urlService.getallUrlsbyUserId(userId, page);
       if (!urls){
       res.status(404).json('No urls available yet');
       } else{
         // res.status(201).json({ data: urls, pages: totalPages })
-    res.render("ownerUrls", { ownerUrls: urls, pages: totalPages});
-      }
+        res.render("ownerUrls", { ownerUrls: urls, pages: totalPages});
+     }
   } catch(err){
       console.log(err);
     res.status(500).json('Server Error');
