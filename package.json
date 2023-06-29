@@ -23,6 +23,7 @@
     "moment": "^2.29.4",
     "mongoose": "^7.2.4",
     "nanoid": "^4.0.2",
+    "qrcode": "^1.5.3",
     "redis": "^4.6.7"
   },
   "type": "module"

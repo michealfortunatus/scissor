@@ -2,11 +2,40 @@
 import {config} from "../config/config.js";
 import moment from "moment";
 import * as urlService from "../services/url.service.js";
+import {generateQR} from "../utils/generateQRCode.js";
 import {nanoid} from "nanoid";
+
+import * as path from "path";
+
+
+const __dirname = path.resolve();
 
 
 const getHome = async(req, res)=>{
   res.render("index");
+};
+
+const getQRCode = async(req, res)=>{
+  const urlId = req.params.id;
+  
+  try{
+      const QRString = await urlService.getQRCode(urlId);
+      const QRCode= QRString.QRString
+      console.log({ "qrcode": QRCode})
+
+ 
+      if (!QRCode){
+      res.status(404).json('Not found');
+      } else{
+        // res.status(201).json({ data: urls, pages: totalPages })
+        res.render("qrCode", { qrcode: QRCode});
+     }
+  } catch(err){
+      console.log(err);
+    res.status(500).json('Server Error');
+  };
+ 
+ 
 };
 
 
@@ -20,15 +49,19 @@ const createUrl = async (req, res) => {
         let url = await urlService.getOrigUrl(origUrl);
     
         if (!url){
-        const shortUrl = `${base}/${urlId}`;
+        const shortUrl = `${req.headers.referer}/${urlId}`;
+        const QRString = await generateQR(shortUrl);
+        
 
         const urlData = await urlService.createShortUrl({
             urlId,
             origUrl,
           shortUrl,
+          QRString,
           user: req.user.user._id,
           date: moment().format("DD-MMM-YYYY"),
         });
+        console.log(urlData);
 
         res.redirect("/by-user");
         // res.status(201).json({ data: urlData });
@@ -92,4 +125,4 @@ const getAllUrlsByUser = async (req, res) => {
 
 
 
- export {createUrl, getShortUrl, getAllUrlsByUser, getHome};
+ export {createUrl, getShortUrl, getAllUrlsByUser, getHome, getQRCode};

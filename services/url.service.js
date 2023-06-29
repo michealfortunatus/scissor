@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 import urlModel from "../db/models/url.model.js";
 
 const createShortUrl = async (urlData) => {
-  const newUrls = await urlModel.create(urlData);
+  let newUrls = await urlModel.create(urlData);
   return newUrls;
 };
 
@@ -21,6 +21,11 @@ const getShortUrl= async(origUrl) => {
   return shortUrl;
 }
 
+const getQRCode = async(urlId) => {
+  let QRCode = await urlModel.findOne({ urlId }).select({QRString: 1, _id:0})
+  return QRCode;
+}
+
 const getallUrlsbyUserId= async(userId, page) => {
   const urlsPerPage= 20
 
@@ -31,7 +36,7 @@ const getallUrlsbyUserId= async(userId, page) => {
 
   let urls = await urlModel.find({
     user: new Types.ObjectId(userId),
-  }).sort({date: 1})
+  }).sort({date: -1, clicks: -1})
     .skip(page * urlsPerPage)
     .limit(urlsPerPage);
   return {urls, totalPages};
@@ -44,4 +49,4 @@ const incrementUrlClicks= async(urlId) => {
 }
 
 
-export {createShortUrl, getOrigUrl, getUrlById, getShortUrl, getallUrlsbyUserId, incrementUrlClicks};
+export {createShortUrl, getOrigUrl, getUrlById, getShortUrl, getQRCode, getallUrlsbyUserId, incrementUrlClicks};

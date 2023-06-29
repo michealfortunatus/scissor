@@ -23,6 +23,9 @@ const urlSchema = new Schema({
     type: String,
     default: Date,
   },
+  QRString: { 
+    type: String, 
+    required: false },
 });
 
 const urlModel = model("Url", urlSchema); 

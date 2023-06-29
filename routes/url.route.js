@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {getHome,createUrl, getShortUrl, getAllUrlsByUser} from "../controllers/url.controller.js";
+import {createUrl, getShortUrl, getAllUrlsByUser} from "../controllers/url.controller.js";
 import { getShortUrlCache } from "../middleware/getShortUrlCache.middleware.js";
 import { getUrlsByUserCache } from "../middleware/getUrlsByUserCache.middleware.js";
 import createUrlValidator from "../middleware/validators/urlValidator.js";
@@ -14,7 +14,7 @@ urlRoute.route("/create")
 urlRoute.route("/by-user").get(getUrlsByUserCache, getAllUrlsByUser);
 
 
-urlRoute.route("/:id").get(getShortUrlCache, getShortUrl);
+urlRoute.route("/by-user/:id").get(getShortUrlCache, getShortUrl);
 
 
 export default urlRoute

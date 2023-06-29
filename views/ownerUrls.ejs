@@ -17,12 +17,11 @@
     <div class="card mt-3">
         <div class="card-body font-weight-bold">
              <div style="width:15%" class="mt-5 border border-dark text-center"><%=url.date %></div>
-             <div class="text-muted"><%= url.origUrl %> Original url</div>
+             <div class="text-muted"><%= url.origUrl %></div>
                    
             <div class="d-inline p-2 text-danger"><%=url.shortUrl %></div>
+            <div class="d-inline p-2 border border-danger text-center text-primary "><a href="/ScanQRCode/<%=url.urlId %>" class= "text-danger">QRCode</a></div>
             <div class="d-inline p-2 border border-primary text-center text-primary">Clicks <%=url.clicks %></div>
-            
-    
             
             
         </div>
