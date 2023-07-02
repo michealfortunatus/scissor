@@ -1,0 +1,43 @@
+title: urlModel
+x-stoplight:
+  id: 3f2fnth39mgd6
+x-tags:
+  - schema
+type: object
+properties:
+  UrlId:
+    type: string
+    x-stoplight:
+      id: n0tm5thbcegde
+  user:
+    type: string
+    x-stoplight:
+      id: zrn5l1qaq763e
+  origUrl:
+    type: string
+    x-stoplight:
+      id: giekqli46u6un
+  shortUrl:
+    type: string
+    x-stoplight:
+      id: b7gny22eszsa5
+  clicks:
+    type: integer
+    x-stoplight:
+      id: gx7bq0h4vax9u
+    default: 0
+    format: int64
+  date:
+    type: string
+    x-stoplight:
+      id: 0jteq648ryxmn
+    format: date
+  QRString:
+    type: string
+    x-stoplight:
+      id: 90qcbvu4uhuef
+required:
+  - UrlId
+  - user
+  - origUrl
+  - shortUrl

@@ -1,0 +1,28 @@
+title: userModel
+x-stoplight:
+  id: fv29mg6oqquda
+x-tags:
+  - schema
+type: object
+properties:
+  name:
+    type: string
+    x-stoplight:
+      id: 1rpdcf8sk8fqc
+  email:
+    type: string
+    x-stoplight:
+      id: 0vh5y8uapsvi5
+  password:
+    type: string
+    x-stoplight:
+      id: gti5gyrnhh2u9
+  createdAt:
+    type: string
+    x-stoplight:
+      id: lijixe9l3rmc7
+    format: date
+required:
+  - name
+  - email
+  - password
