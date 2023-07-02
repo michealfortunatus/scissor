@@ -1,0 +1,136 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 0yt6n2s2mjd4z
+info:
+  title: Scissor
+  version: '1.0'
+  summary: A simple url shortener
+  description: A Fast and Simple Url Shortener
+  contact:
+    name: Adeyinka Oresanya
+    email: adeyinkaoresanya@gmail.com
+servers:
+  - url: 'https://scissor-v4pd.onrender.com/'
+paths:
+  /by-user:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+      operationId: get-by-user
+      description: gets all URLs created by a logged in user
+      parameters:
+        - schema:
+            type: string
+          in: cookie
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+  /login:
+    post:
+      summary: ''
+      operationId: post-login
+      responses:
+        '200':
+          description: OK
+      description: logs in a registered user
+  /register:
+    post:
+      summary: ''
+      operationId: post-register
+      responses:
+        '200':
+          description: OK
+      description: endpoint for registering a first time user
+  '/ScanQRCode/:id':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: 'get-ScanQRCode-:id'
+      description: gets the generated QR COde of a shortened url
+  /create:
+    post:
+      summary: ''
+      operationId: post-create
+      responses:
+        '200':
+          description: OK
+      description: endpoint for creating short URLs from long URLs
+  '/by-user/:id':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: 'get-by-user-:id'
+      description: gets a particular shortened URL
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      examples:
+        - id: 142
+          firstName: Alice
+          lastName: Smith
+          email: alice.smith@gmail.com
+          dateOfBirth: '1997-10-31'
+          emailVerified: true
+          signUpDate: '2019-08-24'
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+          x-stoplight:
+            id: ize9bdbbq3kmr
+        firstName:
+          type: string
+          x-stoplight:
+            id: yb7w8rt2gtqjr
+        lastName:
+          type: string
+          x-stoplight:
+            id: kwt16nkcqu207
+        email:
+          type: string
+          format: email
+          x-stoplight:
+            id: j1871jq8uj2ka
+        dateOfBirth:
+          type: string
+          format: date
+          example: '1997-10-31'
+          x-stoplight:
+            id: 9fyj5g3mxhz87
+        emailVerified:
+          type: boolean
+          description: Set to true if the user's email has been verified.
+          x-stoplight:
+            id: 6al35xa35l5wn
+        createDate:
+          type: string
+          format: date
+          description: The date that the user was created.
+          x-stoplight:
+            id: qp8xw097q0zih
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - emailVerified
+      x-stoplight:
+        id: gt89szc10rw9x
+  securitySchemes:
+    API Key - 1:
+      name: API Key
+      type: apiKey
+      in: query
