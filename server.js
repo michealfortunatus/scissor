@@ -9,8 +9,10 @@ import authMiddleware from "./middleware/authentication.middleware.js";
 import {limiter} from "./middleware/rateLimiter.js";
 import homeRoute from "./routes/home.route.js";
 import qrRoute from "./routes/qrCode.route.js";
+import redirectRoute from "./routes/redirectShortUrl.route.js";
 import urlRoute from "./routes/url.route.js";
 import userRoute from "./routes/user.route.js";
+
 
 
 const __dirname = path.resolve();
@@ -42,6 +44,7 @@ app.use(cookieParser());
 //routes
 app.use("/", homeRoute);
 app.use("/", qrRoute)
+app.use("/", redirectRoute)
 app.use("/", userRoute);
 app.use("/", authMiddleware, urlRoute);
 

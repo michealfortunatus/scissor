@@ -14,7 +14,7 @@ urlRoute.route("/create")
 urlRoute.route("/by-user").get(getUrlsByUserCache, getAllUrlsByUser);
 
 
-urlRoute.route("/by-user/:id").get(getShortUrlCache, getShortUrl);
+// urlRoute.route("/by-user/:id").get(getShortUrlCache, getShortUrl);
 
 
 export default urlRoute

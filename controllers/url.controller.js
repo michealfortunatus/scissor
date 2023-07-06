@@ -8,6 +8,7 @@ import {nanoid} from "nanoid";
 import * as path from "path";
 
 
+
 const __dirname = path.resolve();
 
 
@@ -100,6 +101,29 @@ const getShortUrl= async (req, res) => {
 };
 
 
+const redirectShortUrl= async (req, res) => {
+  const urlId = req.params.id;
+  
+  try{
+      const url = await urlService.getUrlById(urlId);
+        
+      if (!url){
+      res.status(404).json("Not found");
+      } else{
+          const updatedUrl = await urlService.incrementUrlClicks(urlId)
+         
+          return res.redirect(url.origUrl);
+      }
+  } catch(err){
+      console.log(err);
+    res.status(500).json('Server Error');
+  };
+ 
+};
+
+
+
+
 const getAllUrlsByUser = async (req, res) => {
   const userId = req.user.user._id;
   const page= req.query.page || 0; 
@@ -111,6 +135,7 @@ const getAllUrlsByUser = async (req, res) => {
       res.status(404).json('No urls available yet');
       } else{
         // res.status(201).json({ data: urls, pages: totalPages })
+        
         res.render("ownerUrls", { ownerUrls: urls, pages: totalPages});
      }
   } catch(err){
@@ -125,4 +150,5 @@ const getAllUrlsByUser = async (req, res) => {
 
 
 
- export {createUrl, getShortUrl, getAllUrlsByUser, getHome, getQRCode};
+
+ export {createUrl, getShortUrl, getAllUrlsByUser, getHome, getQRCode, redirectShortUrl};

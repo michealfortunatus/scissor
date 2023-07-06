@@ -1,6 +1,8 @@
 <%- include("../public/partials/nav") %> 
 <%- include("../public/partials/header") %>
 
+
+
 <div class="container mt-5 py-5">
     <div class="card-body">
         <form action="/create" method="POST">
@@ -11,6 +13,7 @@
         </form>
     
     <h3>Your Urls!</h3>
+
     
     <% ownerUrls.forEach(url => { %>
 
@@ -19,7 +22,7 @@
              <div style="width:15%" class="mt-5 border border-dark text-center"><%=url.date %></div>
              <div class="text-muted"><%= url.origUrl %></div>
                    
-            <div class="d-inline p-2 text-danger"><%=url.shortUrl %></div>
+            <div class="d-inline p-2 text-danger" id="inputText"><%=url.shortUrl %></div>            
             <div class="d-inline p-2 border border-danger text-center text-primary "><a href="/ScanQRCode/<%=url.urlId %>" class= "text-danger">QRCode</a></div>
             <div class="d-inline p-2 border border-primary text-center text-primary">Clicks <%=url.clicks %></div>
             
@@ -30,6 +33,9 @@
 
 
 </div>
+
+
+
 
 <nav aria-label="Page navigation example">
     <ul class="pagination">
