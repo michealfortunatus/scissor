@@ -5,16 +5,125 @@ info:
   title: Scissor
   version: '1.0'
   summary: A simple url shortener
-  description: A Fast and Simple Url Shortener
+  description: This is a fast and simple URL shortener built as a capstone project from AltSchool Africa.
   contact:
     name: Adeyinka Oresanya
     email: adeyinkaoresanya@gmail.com
+  license:
+    name: MIT
 servers:
-  - url: 'https://scissor-v4pd.onrender.com/'
+  - url: 'https://scissor-v4pd.onrender.com'
 paths:
+  /register:
+    post:
+      summary: Register
+      operationId: post-register
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example 1:
+                  value:
+                    email: janebakes@gmail.com
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      description: This is the endpoint for registering a first-time user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              Example 1:
+                value:
+                  name: Jane
+                  email: janebakes@gmail.com
+                  password: Janebakes236!
+  /login:
+    post:
+      summary: Login
+      operationId: post-login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example 1:
+                  value:
+                    email: janebakes@gmail.com
+                    token: token
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+            text/html:
+              schema:
+                type: object
+                properties: {}
+      description: This endpoint logs in a registered user and provides a token in the response cookies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              Example 1:
+                value:
+                  email: janebakes@gmail.com
+                  password: Janebakes236!
+  /create:
+    post:
+      summary: Shorten url
+      operationId: post-create
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example 1:
+                  value:
+                    urlId: jxPhc
+                    user: new ObjectId("64a2ae1043ef0a3eb98bf6d2")
+                    origUrl: 'https://www.dataquest.io/blog/web-scraping-python-using-beautiful-soup/'
+                    shortUrl: 'https://scissor-v4pd.onrender.com/by-user/jxPhc'
+                    clicks: 0
+                    date: 03-Jul-2023
+                    QRString: 'data:image/png;base64,...'
+      description: This is the endpoint for shortening URLs from long URLs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              Example 1:
+                value:
+                  url: 'https://www.dataquest.io/blog/web-scraping-python-using-beautiful-soup/'
   /by-user:
     get:
-      summary: Your GET endpoint
+      summary: User's dashboard
       tags: []
       responses:
         '200':
@@ -22,7 +131,7 @@ paths:
         '201':
           description: Created
       operationId: get-by-user
-      description: gets all URLs created by a logged in user
+      description: gets all URLs created by an authenticated user. This is like a dashboard for viewing the history of all shortened URLs and tracking the analytics
       parameters:
         - schema:
             type: string
@@ -33,44 +142,34 @@ paths:
             schema:
               type: object
               properties: {}
-  /login:
-    post:
-      summary: ''
-      operationId: post-login
-      responses:
-        '200':
-          description: OK
-      description: logs in a registered user
-  /register:
-    post:
-      summary: ''
-      operationId: post-register
-      responses:
-        '200':
-          description: OK
-      description: endpoint for registering a first time user
+            examples:
+              Example 1:
+                value: {}
   '/ScanQRCode/:id':
     get:
-      summary: Your GET endpoint
+      summary: Scan/ Save QR Code
       tags: []
-      responses: {}
-      operationId: 'get-ScanQRCode-:id'
-      description: gets the generated QR COde of a shortened url
-  /create:
-    post:
-      summary: ''
-      operationId: post-create
       responses:
         '200':
           description: OK
-      description: endpoint for creating short URLs from long URLs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example 1:
+                  value:
+                    QRString: 'data:image/png;base64,...'
+      operationId: 'get-ScanQRCode-:id'
+      description: This endpoint gets the generated QR Code of a specific shortened URL
   '/by-user/:id':
     get:
-      summary: Your GET endpoint
+      summary: Redirects shortened url
       tags: []
       responses: {}
       operationId: 'get-by-user-:id'
-      description: gets a particular shortened URL
+      description: This endpoint redirects a specific shortened URL to its original URL
 components:
   schemas:
     User:
