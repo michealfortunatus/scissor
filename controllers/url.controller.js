@@ -1,5 +1,7 @@
 
 import {config} from "../config/config.js";
+import {cache} from "../config/redis.js";
+
 import moment from "moment";
 import * as urlService from "../services/url.service.js";
 import {generateQR} from "../utils/generateQRCode.js";
@@ -62,8 +64,10 @@ const createUrl = async (req, res) => {
           user: req.user.user._id,
           date: moment().format("DD-MMM-YYYY"),
         });
-        console.log(urlData);
-
+      
+        const cacheKey = `url:${urlId}`;
+    
+        cache.redis.set(cacheKey, JSON.stringify(urlData));
         res.redirect("/by-user");
         // res.status(201).json({ data: urlData });
 
@@ -80,25 +84,7 @@ const createUrl = async (req, res) => {
   };
 
 
-const getShortUrl= async (req, res) => {
-  const urlId = req.params.id;
-  
-  try{
-      const url = await urlService.getUrlById(urlId);
-        
-      if (!url){
-      res.status(404).json("Not found");
-      } else{
-          const updatedUrl = await urlService.incrementUrlClicks(urlId)
-         
-          return res.redirect(url.origUrl);
-      }
-  } catch(err){
-      console.log(err);
-    res.status(500).json('Server Error');
-  };
- 
-};
+
 
 
 const redirectShortUrl= async (req, res) => {
@@ -135,7 +121,7 @@ const getAllUrlsByUser = async (req, res) => {
       res.status(404).json('No urls available yet');
       } else{
         // res.status(201).json({ data: urls, pages: totalPages })
-        
+      
         res.render("ownerUrls", { ownerUrls: urls, pages: totalPages});
      }
   } catch(err){
@@ -151,4 +137,4 @@ const getAllUrlsByUser = async (req, res) => {
 
 
 
- export {createUrl, getShortUrl, getAllUrlsByUser, getHome, getQRCode, redirectShortUrl};
+ export {createUrl, getAllUrlsByUser, getHome, getQRCode, redirectShortUrl};

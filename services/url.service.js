@@ -1,5 +1,6 @@
 import { Types } from "mongoose";
 import urlModel from "../db/models/url.model.js";
+import {cache} from "../config/redis.js";
 
 const createShortUrl = async (urlData) => {
   let newUrls = await urlModel.create(urlData);
@@ -7,12 +8,12 @@ const createShortUrl = async (urlData) => {
 };
 
 const getOrigUrl= async(origUrl) => {
-  let url= await urlModel.findOne({ origUrl}).populate("user");
+  let url= await urlModel.findOne({ origUrl});
   return url;
 };
 
 const getUrlById= async(urlId) => {
-  let url= await urlModel.findOne({ urlId}).populate("user");
+  let url= await urlModel.findOne({ urlId});
   return url;
 };
 
@@ -27,11 +28,14 @@ const getQRCode = async(urlId) => {
 }
 
 const getallUrlsbyUserId= async(userId, page) => {
+  const cacheKey = `urls:${userId}`;
+
   const urlsPerPage= 20
 
   const totalRecords = await urlModel.find().count();
 
   const totalPages = Math.ceil(totalRecords / urlsPerPage);
+
     
 
   let urls = await urlModel.find({
@@ -39,6 +43,9 @@ const getallUrlsbyUserId= async(userId, page) => {
   }).sort({date: -1, clicks: -1})
     .skip(page * urlsPerPage)
     .limit(urlsPerPage);
+
+  const dataToCache= {urls, totalPages}; 
+  cache.redis.set(cacheKey, JSON.stringify(dataToCache));
   return {urls, totalPages};
 }
 

@@ -1,15 +1,17 @@
 import {cache} from "../config/redis.js";
 
 const getUrlsByUserCache = async (req, res, next) => {
-  const { userId } = req.user.user._id;
+  const  userId  = req.user.user._id;
 
   const cacheKey = `urls:${userId}`;
 
-  const cachedUrl = await cache.redis.get(cacheKey);
+  const cachedData = await cache.redis.get(cacheKey);
+  const parsedData = JSON.parse(cachedData);
 
-  if (cachedUrl) {
+
+  if (cachedData) {
       // Cache hit
-      return res.json({ status: true, order: JSON.parse(cachedUrl) })
+     return res.render("ownerUrls", { ownerUrls: parsedData.urls, pages: parsedData.totalPages})
   }
 
   // Cache miss
