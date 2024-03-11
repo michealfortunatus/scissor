@@ -1,4 +1,4 @@
-import QRCode from "qrcode";
+import QRCode from "qrcode"
 
 const generateQR = (url) => {
   return  QRCode.toDataURL(url)

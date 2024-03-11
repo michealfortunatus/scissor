@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import urlModel from "../db/models/url.model.js";
-import {cache} from "../config/redis.js";
+import {cache} from "../config/redis.js"
 
 const createShortUrl = async (urlData) => {
   let newUrls = await urlModel.create(urlData);

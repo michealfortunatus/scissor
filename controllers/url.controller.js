@@ -7,7 +7,7 @@ import * as urlService from "../services/url.service.js";
 import {generateQR} from "../utils/generateQRCode.js";
 import {nanoid} from "nanoid";
 
-import * as path from "path";
+import * as path from "path"
 
 
 

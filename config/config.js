@@ -9,7 +9,7 @@ const config = {
   },
   jwt: {
     secret: process.env.JWT_SECRET || "S3H4US4H@!",
-    ttl: "1h",
+    ttl: "1hr",
   },
 };
 

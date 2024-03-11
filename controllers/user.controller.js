@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { config } from "../config/config.js";
-import * as userService from "../services/user.service.js";
+import * as userService from "../services/user.service.js"
 
 
 const getRegister= async(req, res)=>{

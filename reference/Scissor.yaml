@@ -7,8 +7,8 @@ info:
   summary: A simple url shortener
   description: This is a fast and simple URL shortener built as a capstone project from AltSchool Africa.
   contact:
-    name: Adeyinka Oresanya
-    email: adeyinkaoresanya@gmail.com
+    name: Es Fortunatus
+    email: fortunatusmicheal@gmail.com
   license:
     name: MIT
 servers:
