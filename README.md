@@ -32,7 +32,7 @@ This is a fast and simple URL shortener built as a capstone project from <a href
 #### How to clone this repo
 
 ```sh
-git clone https://github.com/adeyinkaoresanya/scissor.git
+git clone https://github.com/michealfortunatus/scissor.git
 ```
 
 #### Install project dependencies
@@ -222,4 +222,4 @@ Response
 
 
 ## Contributor
-- Adeyinka Oresanya
+- fortune Eso
