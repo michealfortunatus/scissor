@@ -12,7 +12,7 @@ import homeRoute from "./routes/home.route.js";
 import qrRoute from "./routes/qrCode.route.js";
 import redirectRoute from "./routes/redirectShortUrl.route.js";
 import urlRoute from "./routes/url.route.js";
-import userRoute from "./routes/user.route.js";
+import userRoute from "./routes/user.route.js"
 
 
 
